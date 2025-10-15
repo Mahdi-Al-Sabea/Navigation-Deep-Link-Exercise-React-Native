@@ -1,10 +1,19 @@
 import { View,Text,StyleSheet,Button } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 function PickVoiceScreen() {
+    const navigation = useNavigation();
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Pick Voice Screen</Text>
-            <Button title="Dismiss" onPress={() => {}} />
+            <Button title="Dismiss" onPress={() => {
+                  navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'Main' }], 
+                    });
+
+            }} />
         </View>
     );
 }
