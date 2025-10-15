@@ -1,16 +1,13 @@
 import { View,Text,StyleSheet,Button } from "react-native";
 import { useNavigation } from "@react-navigation/native";
     
-function EnterCompanyScreen({route}) {
+function SetCompanyScreen() {
     const navigation = useNavigation();
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Enter Company ID </Text>
-
-            {route.params?.sourceScreen === 'Set Company' ? <Text> (No need to enter again if same company) </Text> 
-            :<Button title="Continue" onPress={() => navigation.navigate("Pick Voice")} />}
-            
+            <Text style={styles.title}>Set Company ID </Text>
+            <Button title="Enter another Company ID" onPress={() => navigation.navigate("Enter Company",{sourceScreen:'Set Company'})} />
         </View>
     );
 }
@@ -28,4 +25,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default EnterCompanyScreen;
+export default SetCompanyScreen;

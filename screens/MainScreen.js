@@ -1,6 +1,7 @@
 import { View,Text,StyleSheet,Button } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import { TouchableOpacity } from "react-native";
 
 function MainScreen() {
@@ -8,9 +9,9 @@ function MainScreen() {
 
   return (
     <View style={styles.container}>
-         <View style={{ padding: 20 }}>
-        <TouchableOpacity onPress={() => navigation.navigate('SettingsModal')}>
-          <Text>Settings</Text>
+         <View style={styles.settings} >
+        <TouchableOpacity  onPress={() => navigation.navigate('Settings')}>
+            <Icon name="settings" size={50} color="#545458ff" />
         </TouchableOpacity>
       </View>
       <Text style={styles.title}>Main Screen</Text>
@@ -29,6 +30,11 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: "bold"
+    },
+    settings: {
+      position: 'absolute',
+      top: 30,
+      left: 30
     }
 });
 

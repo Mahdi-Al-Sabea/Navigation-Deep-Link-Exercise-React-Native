@@ -1,6 +1,6 @@
 import { View,Text,StyleSheet,Button } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import 
+
 
 function SettingsScreen() {
   const navigation = useNavigation();
@@ -8,7 +8,8 @@ function SettingsScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Settings Screen</Text>
-    
+      <Button title="Go to Set Company" onPress={() => navigation.navigate("Set Company")} />
+        <Button title="Pick Voice" onPress={() => navigation.navigate("Pick Voice",{sourceScreen: "Settings"})} />
     </View>
   );
 }
@@ -26,4 +27,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default VoiceBotScreen;
+export default SettingsScreen;

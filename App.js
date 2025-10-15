@@ -8,10 +8,8 @@ import EnterCompanyScreen from './screens/EnterCompanyScreen';
 import PickVoiceScreen from './screens/PickVoiceScreen';
 import MainScreen from './screens/MainScreen';
 import VoiceBotScreen from './screens/VoiceBotScreen';
-import { useState } from 'react';
-import { Button } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Color } from 'react-native/types_generated/Libraries/Animated/AnimatedExports';
+import SettingsScreen from './screens/SettingsScreen';
+import SetCompanyScreen from './screens/SetCompanyScreen';
 
 const OnboardingStack = createNativeStackNavigator();
 
@@ -22,12 +20,26 @@ function OnboardingFlow() {
       screenOptions={{ headerShown: true }}
     >
       <OnboardingStack.Screen name="Welcome" component={WelcomeScreen} />
-      <OnboardingStack.Screen
-        name="Enter Company"
-        component={EnterCompanyScreen}
-      />
+      <OnboardingStack.Screen name="Enter Company" component={EnterCompanyScreen}/>
       <OnboardingStack.Screen name="Pick Voice" component={PickVoiceScreen}  />
+
     </OnboardingStack.Navigator>
+  );
+}
+
+const SettingsStack = createNativeStackNavigator();
+
+function SettingsFlow() {
+  return (
+    <SettingsStack.Navigator
+      initialRouteName="Settings"
+      screenOptions={{ headerShown: true }}
+    >
+      <SettingsStack.Screen name="Settings" component={SettingsScreen} />
+      <SettingsStack.Screen name="Pick Voice" component={PickVoiceScreen} />
+      <SettingsStack.Screen name="Set Company" component={SetCompanyScreen} />
+      <SettingsStack.Screen name="Enter Company" component={EnterCompanyScreen}/>
+    </SettingsStack.Navigator>
   );
 }
 
@@ -37,24 +49,20 @@ function App() {
   return (
     <NavigationContainer>
       <SafeAreaProvider>
-        <RootStack.Navigator
-          initialRouteName="Splash"
-          screenOptions={{ headerShown: false }}
-        >
+        <RootStack.Navigator initialRouteName="Splash" screenOptions={{ headerShown: false }}>
+
           <RootStack.Screen name="Splash" component={SplashScreen} />
-
-            <RootStack.Screen
-              name="OnboardingFlow"
-              component={OnboardingFlow}
-            />
-            <RootStack.Screen name="Voice Bot" component={VoiceBotScreen} options={
+          <RootStack.Screen name="OnboardingFlow" component={OnboardingFlow}/>
+          <RootStack.Screen name="Main"  component={MainScreen}  />
+          <RootStack.Screen name="Settings"  component={SettingsFlow} 
+              options={{headerShown: false, presentation: 'modal', animation: 'slide_from_bottom'}}   
+          />
+          <RootStack.Screen name="Voice Bot" component={VoiceBotScreen} 
+              options={
               { presentation: 'fullScreenModal',
-            animation: 'slide_from_bottom'}
-            }/>
+              animation: 'slide_from_bottom',headerShown: true }}
+          />
 
-
-          <RootStack.Screen name="Main"  component={MainScreen} options={{headerShown: false }} />
-          
         </RootStack.Navigator>
       </SafeAreaProvider>
     </NavigationContainer>
