@@ -1,8 +1,8 @@
 import { View,Text,StyleSheet } from "react-native";
 import { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-
-
+import { styles } from "../styles";
+import { colors } from "../styles";
 
 
 
@@ -28,22 +28,17 @@ function SplashScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Splash Screen</Text>
+      <Text style={customStyles.title}>Splash</Text>
     </View>
   );
 }
 
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#f0f0f0"
-    },
+const customStyles = StyleSheet.create({
     title: {
-        fontSize: 24,
-        fontWeight: "bold"
+        fontSize: 54,
+        fontWeight: "bold",
+        color: colors.textPrimary
     }
 });
 

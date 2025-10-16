@@ -1,5 +1,6 @@
-import { View,Text,StyleSheet,Button } from "react-native";
+import { View,Text,TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { styles } from "../styles";
 
 function PickVoiceScreen({route}) {
     const navigation = useNavigation();
@@ -8,18 +9,18 @@ function PickVoiceScreen({route}) {
         <View style={styles.container}>
             <Text style={styles.title}>Pick Voice Screen</Text>
             {route.params?.sourceScreen=== 'Settings' ? null
-            : ( <Button title="Dismiss" onPress={() => {navigation.reset({
+            : ( <TouchableOpacity style={styles.button} onPress={() => {navigation.reset({
                         index: 0,
                         routes: [{ name: 'Main' }], 
                     });
 
-            }} />)}
+            }}><Text style={styles.buttonText}>Dismiss</Text></TouchableOpacity>)}
 
         </View>
     );
 }
 
-const styles = StyleSheet.create({
+/* const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",
@@ -30,6 +31,6 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: "bold"
     }
-});
+}); */
 
 export default PickVoiceScreen;
