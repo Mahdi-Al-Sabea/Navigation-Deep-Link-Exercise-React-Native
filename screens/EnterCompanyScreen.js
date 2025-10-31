@@ -8,10 +8,12 @@ function EnterCompanyScreen({route}) {
         <View style={styles.container}>
             <Text style={styles.title}>Enter Company ID </Text>
 
-            {route.params?.sourceScreen === 'Set Company' ? <Text style={styles.subtitle}>  </Text> 
-            :<TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Pick Voice")} >
+            {route.params?.sourceScreen === 'Welcome' ? (<TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Pick Voice")} >
                 <Text style={styles.buttonText}>Continue</Text>
-            </TouchableOpacity>}
+            </TouchableOpacity>)
+            :(<Text style={styles.subtitle}>  </Text>)}
+
+          
             
         </View>
     );

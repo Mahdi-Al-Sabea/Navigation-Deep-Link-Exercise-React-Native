@@ -11,7 +11,7 @@ function PickVoiceScreen({route}) {
             {route.params?.sourceScreen=== 'Settings' ? null
             : ( <TouchableOpacity style={styles.button} onPress={() => {navigation.reset({
                         index: 0,
-                        routes: [{ name: 'Main' }], 
+                        routes: [{ name: 'MainFlow' }], 
                     });
 
             }}><Text style={styles.buttonText}>Dismiss</Text></TouchableOpacity>)}
@@ -20,17 +20,6 @@ function PickVoiceScreen({route}) {
     );
 }
 
-/* const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#f0f0f0"
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: "bold"
-    }
-}); */
+
 
 export default PickVoiceScreen;

@@ -46,22 +46,29 @@ function SettingsFlow() {
 }
 
 
-const linking = {
-  prefixes: ['example://'],
-  config: {
-    screens: {
-      Main: 'main',
-      Settings: {
-        screens: {
-          'Settings Main': 'settings',
-          'Set Company': 'settings/set-company',
-          'Pick Voice': 'settings/pick-voice',
-          'Enter Company': 'settings/enter-company',
-        },
-      },
-    },
-  },
-};
+const MainStack = createNativeStackNavigator();
+
+function MainFlow() {
+  return (
+    <MainStack.Navigator
+      initialRouteName="Main"
+      screenOptions={{ headerShown: false }}
+    >
+      <MainStack.Screen name="Main" component={MainScreen} />
+      <MainStack.Screen name="Settings"  component={SettingsFlow} 
+          options={{headerShown: false, presentation: 'modal', animation: 'slide_from_bottom'}}   
+      />
+      <MainStack.Screen name="Voice Bot" component={VoiceBotScreen} 
+          options={
+          { presentation: 'fullScreenModal',
+          animation: 'slide_from_bottom',headerShown: true }}
+      />
+
+
+    </MainStack.Navigator>
+  );
+}
+
 
 
 
@@ -70,72 +77,53 @@ function App() {
 
 
 
+const linking = {
+  prefixes: ['example://'],
+  config: {
+    screens: {
+      // RootStack level
+      Splash: 'splash',
 
-  const [initialState, setInitialState] = useState();
-  const navigationRef = useRef();
+      OnboardingFlow: {
+        path: 'onboarding',
+        screens: {
+          Welcome: 'welcome',
+          'Enter Company': 'enter-company',
+          'Pick Voice': 'pick-voice',
+        },
+      },
 
-  useEffect(() => {
-    const restoreState = async () => {
-      try {
-        const url = await Linking.getInitialURL();
-        
-        if (url) {
-
-          const state = buildInitialStateFromDeepLink(url);
-          setInitialState(state);
-        }
-      } catch (error) {
-        console.error('Error restoring state:', error);
-      }
-    };
-
-    restoreState();
-  }, []);
-
-  const buildInitialStateFromDeepLink = (url) => {
-    if (url.startsWith('example://settings/set-company')) {
-  
-      return {
-        routes: [
-          { 
-            name: 'Main',
-            state: {
-              routes: [
-                { name: 'MainScreen' } 
-              ]
-            }
+      MainFlow: {
+        path: 'main',
+        initialRouteName: 'Main',
+        screens: {
+          Main: '',
+          'Voice Bot': 'voice-bot',
+          Settings: {
+            path: 'settings',
+            initialRouteName: 'Settings Main',
+            screens: {
+              'Settings Main': '',
+              'Set Company': 'set-company',
+              'Pick Voice': 'pick-voice',
+              'Enter Company': 'enter-company',
+            },
           },
-          { 
-            name: 'Settings',
-            state: {
-              routes: [
-                { name: 'Settings Main' },
-                { name: 'Set Company' },
-              ]
-            }
-          }
-        ]
-      };
-    }
-    return undefined;
-  };
+        },
+      },
+    },
+  },
+};
+
 
   return (
-    <NavigationContainer linking={linking} initialState={initialState} ref={navigationRef}>
+    <NavigationContainer linking={linking} >
       <SafeAreaProvider>
         <RootStack.Navigator initialRouteName="Splash" screenOptions={{ headerShown: false }}>
 
           <RootStack.Screen name="Splash" component={SplashScreen} />
           <RootStack.Screen name="OnboardingFlow" component={OnboardingFlow}/>
-          <RootStack.Screen name="Main"  component={MainScreen}  />
-          <RootStack.Screen name="Settings"  component={SettingsFlow} 
-              options={{headerShown: false, presentation: 'modal', animation: 'slide_from_bottom'}}   
-          />
-          <RootStack.Screen name="Voice Bot" component={VoiceBotScreen} 
-              options={
-              { presentation: 'fullScreenModal',
-              animation: 'slide_from_bottom',headerShown: true }}
-          />
+          <RootStack.Screen name="MainFlow"  component={MainFlow}  />
 
         </RootStack.Navigator>
       </SafeAreaProvider>

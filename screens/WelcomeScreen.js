@@ -39,7 +39,7 @@ useEffect(() => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to the App</Text>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Enter Company")}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Enter Company", {sourceScreen:'Welcome'})}>
           <Text style={styles.buttonText}>Get Started</Text>
         </TouchableOpacity>
     </View>
